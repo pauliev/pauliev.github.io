@@ -5,6 +5,7 @@ description: turning data into business value
 # social links
 twitter_username: paulvermette
 linkedin_username: paulvermette
+rss: rss
 
 show_excerpts: true # set to true to show excerpts on the homepage
 excerpt_separator: <!--more-->
