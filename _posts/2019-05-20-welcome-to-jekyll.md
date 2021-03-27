@@ -1,6 +1,6 @@
 ---
 layout: post
-categories: cat1
+category: cat1
 tags:
   - tag1
   - tag2
