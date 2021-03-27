@@ -1,31 +1,13 @@
 title: thedata.zone
 author: Paul Vermette
-email: # your-email@domain.com
-description: > # this means to ignore newlines until "twitter_username:"
-  turning data into business value
+description: turning data into business value
 
 # social links
 twitter_username: paulvermette
-github_username:  pauliev
-rss: rss
-# dribbble_username: jekyll
-# facebook_username: jekyll
-# flickr_username: jekyll
-# instagram_username: jekyll
 linkedin_username: paulvermette
-# pinterest_username: jekyll
-# youtube_username: jekyll
-# googleplus_username: +jekyll
-
-# Mastodon instances
-# mastodon:
-# - username: jekyll
-#   instance: example.com
-# - username: jekyll2
-#   instance: example.com
-
 
 show_excerpts: true # set to true to show excerpts on the homepage
+excerpt_separator: <!--more-->
 
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
