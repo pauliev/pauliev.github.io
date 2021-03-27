@@ -12,11 +12,21 @@ To add new posts, simply add a file in the `_posts` directory that follows the c
 Jekyll also offers powerful support for code snippets:
 
 ```fsharp
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+let  
+    GetDataflow = (ws as text, df as text, entityv as text) as table =>
+    let
+        Source = PowerBI.Dataflows(null),
+        wsEnv = ws & pbi_TargetEnvironmentLUV{[TargetEnvironment=pbi_TargetEnvironment]}[WorkspaceSuffix],
+        dfEnv = df & pbi_TargetEnvironmentLUV{[TargetEnvironment=pbi_TargetEnvironment]}[DataflowSuffix],
+        Workspace = Source{[workspaceName=wsEnv]}[Data],
+        Dataflow = Workspace{[dataflowName=dfEnv]}[Data],
+        Entity = Dataflow{[entity=entityv]}[Data]
+    in  
+        Entity
+    //additional expression steps  
+  
+in  
+    GetDataflow
 ```
 
 Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
