@@ -38,11 +38,13 @@ To create this parameter will define a table (`pbi_TargetEnvironmentLUV`) that s
 The following power query code will generate `pbi_TargetEnvironmentLUV`.
 
 ```fsharp
+{{"  {% 
 let
     Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCijKTylNLsnMz1PSUQKhWJ1opZDU4hIgW68EmQZJuKSWpebkF+Sm5oHFU1LLYFRsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [TargetEnvironment = _t, WorkspaceSuffix = _t, DataflowSuffix = _t]),
     #"Trimmed Text" = Table.TransformColumns(Source,{{"TargetEnvironment", Text.Trim, type text}, {"WorkspaceSuffix", Text.Trim, type text}, {"DataflowSuffix", Text.Trim, type text}})
 in
     #"Trimmed Text"
+"}} %}
 ```
 
 The following power query code will generate `pbi_TargetEnvironmentList`. 
