@@ -1,5 +1,6 @@
 ---
-published: false
+published: true
+permalink: /pbi-dataflows-sdlc/
 layout: post
 category: powerbi
 tags:
@@ -19,7 +20,7 @@ The linch pin to this framework is leveraging _parameters_ within Power BI and r
 
 The following figure is a json based table that defines the three environments.
 
-![Environment Table](2021-03-28-welcome-to-new-datazone/environment_table.png)
+![Environment Table](/assets/posts/2021-03-28-welcome-to-new-datazone/environment_table.png)
 
 For the case that you have a workspace called `dataflow.workspace` and a dataflow called `dataflow.example` the following setup in Power BI is expected.
 
@@ -63,7 +64,7 @@ Now we can add our `pbi_TargetEnvironment` parameter.
 {% raw %}"Development" meta [IsParameterQuery=true, ExpressionIdentifier=pbi_TargetEnvironmentList, Type="Any", IsParameterQueryRequired=true]{% endraw %}
 ```
 
-![Environment Parameter](2021-03-28-welcome-to-new-datazone/environment_parameter.png)
+![Environment Parameter](/assets/posts/2021-03-28-welcome-to-new-datazone/environment_parameter.png)
 
 The following power query function (`pbi_GetDataflow`) needs to be used to access dataflows. You pass the workspace (`ws`), the dataflow (`df`), and the entity (`e`) you want to load. The function will use the value selected y the `pbi_TargetEnvironment`. 
 
