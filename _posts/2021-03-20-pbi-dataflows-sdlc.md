@@ -39,7 +39,7 @@ To create this parameter will define a table (`pbi_TargetEnvironmentLUV`) that s
 
 The following power query code will generate `pbi_TargetEnvironmentLUV`.
 
-```fsharp
+```plaintext
 {% raw %}let
     Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCijKTylNLsnMz1PSUQKhWJ1opZDU4hIgW68EmQZJuKSWpebkF+Sm5oHFU1LLYFRsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [TargetEnvironment = _t, WorkspaceSuffix = _t, DataflowSuffix = _t]),
     #"Trimmed Text" = Table.TransformColumns(Source,{{"TargetEnvironment", Text.Trim, type text}, {"WorkspaceSuffix", Text.Trim, type text}, {"DataflowSuffix", Text.Trim, type text}})
@@ -49,7 +49,7 @@ in
 
 The following power query code will generate `pbi_TargetEnvironmentList`. 
 
-```fsharp
+```plaintext
 {% raw %}let
     Source = pbi_TargetEnvironmentLUV,
     TargetEnvironment = Table.SelectColumns(Source,{"TargetEnvironment"}),
@@ -60,7 +60,7 @@ in
 
 Now we can add our `pbi_TargetEnvironment` parameter. 
 
-```fsharp
+```plaintext
 {% raw %}"Development" meta [IsParameterQuery=true, ExpressionIdentifier=pbi_TargetEnvironmentList, Type="Any", IsParameterQueryRequired=true]{% endraw %}
 ```
 
@@ -70,7 +70,7 @@ The following power query function (`pbi_GetDataflow`) needs to be used to acces
 
 > NOTE: You may need to _Refesh Preview_ if the dataflow is new.
 
-```fsharp
+```plaintext
 {% raw %}let  
     GetDataflow = (ws as text, df as text, e as text) as table =>
     let
@@ -96,7 +96,7 @@ We should now have the following defined as part of our dataset (make sure that 
 
 Putting this all together we can load a dataflow in the following manner. 
 
-```fsharp
+```plaintext
 {% raw %}let
     Source = pbi_GetDataflow("dataflow.workspace", "dataflow.name", "dataflow.entity")
 in
@@ -107,7 +107,7 @@ I also recommend using a recommend using an intermediate query to hold the resul
 
 For example, I will create a query called `Dataflow_Entity_Src` and then reference like this.
 
-```fsharp
+```plaintext
 {% raw %}let
     Source = Dataflow_Entity_Src
 in
