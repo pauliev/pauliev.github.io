@@ -1,17 +1,16 @@
 ---
 published: true
-permalink: /pbi-dataflows-sdlc/
 layout: post
 category: powerbi
 tags:
  - dataflow
-title: Framework for Dataflow SDLC
+title: Framework for Power BI Dataflow Lifecycle
 ---
-
-
-
-When you first start creating dataflows, it is easy to create a dataflow and put it into production; however, there will be times when you will want to make updates, changes and other fixes to a dataflow. This framework defines three environments: 
+It is easy to create a dataflow and put it into production; however, there will be times when you will want to make updates, changes and other fixes to that dataflow. Unfortunatly, at the time of this post, there is no straight-forward method to support a dataflow lifecycle. In this post I dfine a framework that supports a dev-test-prod lifecycle. You will still need to export and import dataflow json files but to switch between dataflows will  be a matter of selecting a target build environment for a dataset. On top of that you don't need premimum licensing! 
 <!--more-->
+
+This framework defines three environments: 
+
 1. Production 
 2. Test 
 3. Development
@@ -39,7 +38,7 @@ To create this parameter will define a table (`pbi_TargetEnvironmentLUV`) that s
 
 The following power query code will generate `pbi_TargetEnvironmentLUV`.
 
-```plaintext
+```powerquery
 {% raw %}let
     Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCijKTylNLsnMz1PSUQKhWJ1opZDU4hIgW68EmQZJuKSWpebkF+Sm5oHFU1LLYFRsLAA=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [TargetEnvironment = _t, WorkspaceSuffix = _t, DataflowSuffix = _t]),
     #"Trimmed Text" = Table.TransformColumns(Source,{{"TargetEnvironment", Text.Trim, type text}, {"WorkspaceSuffix", Text.Trim, type text}, {"DataflowSuffix", Text.Trim, type text}})
@@ -49,7 +48,7 @@ in
 
 The following power query code will generate `pbi_TargetEnvironmentList`. 
 
-```plaintext
+```powerquery
 {% raw %}let
     Source = pbi_TargetEnvironmentLUV,
     TargetEnvironment = Table.SelectColumns(Source,{"TargetEnvironment"}),
@@ -60,7 +59,7 @@ in
 
 Now we can add our `pbi_TargetEnvironment` parameter. 
 
-```plaintext
+```powerquery
 {% raw %}"Development" meta [IsParameterQuery=true, ExpressionIdentifier=pbi_TargetEnvironmentList, Type="Any", IsParameterQueryRequired=true]{% endraw %}
 ```
 
@@ -70,7 +69,7 @@ The following power query function (`pbi_GetDataflow`) needs to be used to acces
 
 > NOTE: You may need to _Refesh Preview_ if the dataflow is new.
 
-```plaintext
+```powerquery
 {% raw %}let  
     GetDataflow = (ws as text, df as text, e as text) as table =>
     let
@@ -96,7 +95,7 @@ We should now have the following defined as part of our dataset (make sure that 
 
 Putting this all together we can load a dataflow in the following manner. 
 
-```plaintext
+```powerquery
 {% raw %}let
     Source = pbi_GetDataflow("dataflow.workspace", "dataflow.name", "dataflow.entity")
 in
@@ -107,7 +106,7 @@ I also recommend using a recommend using an intermediate query to hold the resul
 
 For example, I will create a query called `Dataflow_Entity_Src` and then reference like this.
 
-```plaintext
+```powerquery
 {% raw %}let
     Source = Dataflow_Entity_Src
 in
