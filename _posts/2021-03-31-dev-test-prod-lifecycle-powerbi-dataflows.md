@@ -6,8 +6,9 @@ tags:
  - dataflow
 title: Dev-Test-Prod Lifecycle for Power BI Dataflows
 ---
-When you first start creating dataflows, it is easy to create a dataflow and put it into production; however, there will be times when you will want to make updates, changes and other fixes to a dataflow. This framework defines three environments: 
+It is easy to create a dataflow and put it into production; however, there will be times when you will want to make updates, changes and other fixes to that dataflow. Unfortunatly, at the time of this post, there is no straight-forward method to support a dataflow lifecycle. In this post I dfine a framework that supports a dev-test-prod lifecycle. You will still need to export and import dataflow json files but to switch between dataflows will  be a matter of selecting a target build environment for a dataset. On top of that you don't need premimum licensing! 
 <!--more-->
+
 1. Production 
 2. Test 
 3. Development
