@@ -6,14 +6,13 @@ tags:
  - dataflow
 title: Dev-Test-Prod Lifecycle for Power BI Dataflows
 ---
-It is easy to create a dataflow and put it into production; however, there will be times when you will want to make updates, changes and other fixes to that dataflow. Unfortunatly, at the time of this post, there is no straight-forward method to support a dataflow lifecycle. In this post I dfine a framework that supports a dev-test-prod lifecycle. You will still need to export and import dataflow json files but to switch between dataflows will  be a matter of selecting a target build environment for a dataset. On top of that you don't need premimum licensing! 
-<!--more-->
+It is easy to create a dataflow and put it into production; however, there will be times when you will want to make updates, changes and other fixes to that dataflow. Unfortunately, at the time of this post, there is no straight-forward method to support a dataflow lifecycle. In this post I define a framework that supports a dev-test-prod lifecycle. You will still need to export and import dataflow json files but to switch between dataflows will  be a matter of selecting a target build environment for a dataset. On top of that you don't need premium licensing!<!--more-->
 
-1. Production 
-2. Test 
+1. Production
+2. Test
 3. Development
 
-The linch pin to this framework is leveraging _parameters_ within Power BI and referencing a dataflow by its _name_ instead of its _id_.
+The linchpin to this framework is leveraging _parameters_ within Power BI and referencing a dataflow by its _name_ instead of its _id_.
 
 The following figure is a json based table that defines the three environments.
 
@@ -53,7 +52,7 @@ Now we can add our `pbi_TargetEnvironment` parameter.
 
 The following power query function (`pbi_GetDataflow`) needs to be used to access dataflows. You pass the workspace (`ws`), the dataflow (`df`), and the entity (`e`) you want to load. The function will use the value selected y the `pbi_TargetEnvironment`. 
 
-> NOTE: You may need to _Refesh Preview_ if the dataflow is new.
+> NOTE: You may need to _Refresh Preview_ if the dataflow is new.
 
 ```plaintext
 {% raw %}let  
@@ -75,7 +74,7 @@ in
 We should now have the following defined as part of our dataset (make sure that _Enable load_ is unchecked for all them)
 
 * `pbi_TargetEnvironmentLUV`. Environment Lookup Value _table_.
-* `pbi_TargetEnvironmentList`. Enivronment _list_.
+* `pbi_TargetEnvironmentList`. Environment _list_.
 * `pbi_TargetEnvironment`. Environment _parameter_. 
 * `pbi_GetDataflow`. Dataflow _function_. 
 
