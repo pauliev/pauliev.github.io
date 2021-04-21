@@ -83,7 +83,7 @@ theme_mode:  dark  # [light|dark]
 img_cdn: ''
 
 # the avatar on sidebar, support local or CORS resources
-avatar: /assets/img/favicons/favicon-96x96.png
+avatar: /assets/img/favicons/favicon-72x72.png
 
 excerpt_separator: <!--more-->
 
